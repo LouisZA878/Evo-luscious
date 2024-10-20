@@ -4,3 +4,16 @@ services:
     build: ./client
     ports:
       - "3000:3000"
+
+  products_db:
+    container_name: products_db
+    image: mongo:7-jammy
+    ports:
+      - '27017:27017'
+    volumes:
+      - products_db_volume:/data/db
+
+
+
+volumes:
+  products_db_volume:
