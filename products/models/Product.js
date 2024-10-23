@@ -35,6 +35,10 @@ const newProductSchema = new Schema({
         minlength: process.env.SIZE_MIN,
         maxlength: process.env.SIZE_MAX
     },
+    clothingType: {
+        type: String,
+        required: true
+    },
     pictureName: {
         type: String,
         required: true

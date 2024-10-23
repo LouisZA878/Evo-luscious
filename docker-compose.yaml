@@ -1,9 +1,9 @@
 services:
-  next_client:
-    container_name: next_client
-    build: ./client
-    ports:
-      - "3000:3000"
+  # next_client:
+  #   container_name: next_client
+  #   build: ./client
+  #   ports:
+  #     - "3000:3000"
 
   products_db:
     container_name: products_db

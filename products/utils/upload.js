@@ -9,7 +9,7 @@ function upload() {
     file: (req, file) => {
       return new Promise((resolve, reject) => {
         const fileInfo = {
-          filename: file.originalname.replace(/\s+/g, '_').replace(/\.(png|jpe?g|gif|bmp|svg)$/i, '') + "_" + new Date().getTime(),
+          filename: file.originalname,
           bucketName: process.env.BUCKET_NAME,
         };
         resolve(fileInfo);
@@ -17,16 +17,7 @@ function upload() {
     },
   });
 
-  const fileFilter = (req, file, cb) => {
-    const allowedMimeTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'];
-    
-    if (!allowedMimeTypes.includes(file.mimetype)) {
-      return cb(new Error('Invalid file type, only images are allowed.'), false);
-    }
-    cb(null, true);
-  };
-
-  return multer({ storage, fileFilter });
+  return multer({ storage });
 }
 
 module.exports = { upload };
