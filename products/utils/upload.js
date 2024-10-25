@@ -11,6 +11,9 @@ function upload() {
         const fileInfo = {
           filename: file.originalname,
           bucketName: process.env.BUCKET_NAME,
+          metadata: {
+            mimetype: file.mimetype
+          }
         };
         resolve(fileInfo);
       });

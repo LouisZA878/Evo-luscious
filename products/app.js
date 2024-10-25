@@ -17,7 +17,7 @@ const app = express()
 
 app.use(cors({
     origin: `http://${HOST}:${PORT_CLIENT}`,
-    methods: 'GET,POST'
+    methods: ['GET', 'POST']
 }))
 app.use(express.json())
 

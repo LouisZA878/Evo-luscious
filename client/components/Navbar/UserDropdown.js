@@ -1,6 +1,23 @@
+import { useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const UserDropdown = ({ options, setOptions, children }) => {
+  const dropdownRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setOptions(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
     const menu = {
         closed: {
           scale: 0,
@@ -23,8 +40,7 @@ const UserDropdown = ({ options, setOptions, children }) => {
     <AnimatePresence>
     {options && (
     <motion.div
-        onMouseEnter={() => setOptions(true)}
-        onMouseLeave={() => setOptions(false)}
+        ref={dropdownRef}
         initial="closed"
         exit="closed"
         animate="open"

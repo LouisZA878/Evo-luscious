@@ -36,15 +36,6 @@ const UserOptions = () => {
                 transition={item.transition}
                 variants={item.variants}
             >
-                Add Product
-            </motion.button>
-            <motion.button
-                initial='closed'
-                exit='closed'
-                animate='open'
-                transition={item.transition}
-                variants={item.variants}
-            >
                 Profile
             </motion.button>
     </>

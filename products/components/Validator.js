@@ -11,7 +11,7 @@ const PRICE_MAX = process.env.PRICE_MAX
 const SIZE_MIN = process.env.SIZE_MIN
 const SIZE_MAX = process.env.SIZE_MAX
 
-const name = () => body('name').notEmpty().escape().isLength({ min: NAME_MIN, max: NAME_MAX }).withMessage("A name for this product is required")
+const name = () => body('name').notEmpty().isLength({ min: NAME_MIN, max: NAME_MAX }).withMessage("A name for this product is required")
 const price = () => body('price').notEmpty().escape().isLength({ min: PRICE_MIN, max: PRICE_MAX }).toInt().isNumeric().withMessage("A price for this product is required")
 const gender = () => body('gender').notEmpty().escape().isLength({min: 1, max: 1 }).withMessage("Must specify whether this product is designed for either men or women")
 const age = () => body('age').notEmpty().escape().escape().withMessage("Age group this product is designed for must be specified")
@@ -19,7 +19,6 @@ const stock = () => body('stock').notEmpty().escape().toInt().isNumeric().withMe
 const size = () => body('size').notEmpty().escape().isLength({ min: SIZE_MIN, max: SIZE_MAX }).withMessage('Size of the product must be specified')
 const pictureName = () => body('pictureName').notEmpty().escape().withMessage('Image name must be specified')
 const clothingType = () => body('clothingType').notEmpty().escape().withMessage('Clothing type must be specified')
-const image = () => body("file").notEmpty()
 const productID = () => body('productID').notEmpty().escape()
 const imageID = () => body('imageID').notEmpty().escape()
 
@@ -30,7 +29,6 @@ module.exports = {
     clothingType,
     imageID,
     productID,
-    image,
     name,
     price,
     gender,

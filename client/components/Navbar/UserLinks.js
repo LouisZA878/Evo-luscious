@@ -1,15 +1,14 @@
 "use client"
 
-import { FaSearch , FaShoppingBag , FaRegUser } from "react-icons/fa";
+import { FaSearch , FaShoppingBag , FaRegUser, FaPlus } from "react-icons/fa";
 import { motion } from 'framer-motion'
 
-const UserLinks = ({ setUserOptions, setSearchOptions }) => {
+const UserLinks = ({ setUserOptions, setSearchOptions, setAddProduct }) => {
 
   return (
     <>
         <motion.span
-            onMouseEnter={() => setSearchOptions(true)}
-            onMouseLeave={() => setSearchOptions(false)}
+            onClick={() => setSearchOptions(pre => !pre)}
         >
           <FaSearch className='icons' />
         </motion.span>
@@ -17,10 +16,14 @@ const UserLinks = ({ setUserOptions, setSearchOptions }) => {
           <FaShoppingBag className='icons' />
         </span>
         <motion.span
-            onMouseEnter={() => setUserOptions(true)}
-            onMouseLeave={() => setUserOptions(false)}
+            onClick={() => setUserOptions(pre => !pre)}
         >
           <FaRegUser className='icons' />
+        </motion.span>
+        <motion.span
+            onClick={() => setAddProduct(pre => !pre)}
+        >
+          <FaPlus className='icons' />
         </motion.span>
 
 
