@@ -118,7 +118,7 @@ nav {
     position: absolute;
     top: calc( var(--h-nav) - 15px );
     right: 15px;
-    z-index: 19;
+    z-index: 1;
 
     width: 200px;
     min-height: 0;
@@ -275,7 +275,6 @@ nav {
           justify-content: center;
           align-items: center;
 
-          cursor: pointer;
           grid-area: submit;
 
           font-family: var(--font-fam-normal);
@@ -284,6 +283,8 @@ nav {
         }
         button.open {
           border: 1px solid var(--clr-accent);
+
+          cursor: pointer;
 
           color: var(--clr-highlight);
 
@@ -574,7 +575,7 @@ nav {
     
     position: sticky;
     top: var(--h-nav);
-
+    z-index: 5;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -623,11 +624,30 @@ nav {
       height: 100%;
 
     }
+    div button {
+      border: 1px solid var(--clr-accent);
+      outline: none;
+      background-color: var(--clr-bg);
+      border-radius: 4px;
+
+      cursor: pointer;
+
+      width: 35px;
+      height: 35px;
+
+      svg {
+        font-size: 1.3rem;
+        color: var(--clr-highlight);
+      }
+
+    }
 
   }
   > .content {
     grid-area: body;
-  
+    
+    position: relative;
+    
     padding: 9px;
     min-height: 10lvh;
     width: 100%;
@@ -638,22 +658,152 @@ nav {
     flex-wrap: wrap;
     gap: 9px;
 
-    section {
+    .items {
       width: 225px;
       height: 250px;
       border: 1px solid var(--clr-accent);
       border-radius: 10px;
-      
+      position: relative;
+  
+      overflow: hidden;
+
       transition: width 150ms, height 150ms, transform 150ms;
-      flex-grow: 1;
       box-shadow: 5px 5px 5px #c3a6789c, 
       -5px -5px 5px #c3a67817;
 
-    }
-    section:hover {
-      width: 300px;  
-      height: 350px; 
+      text-decoration: none;
+      list-style-type: none;
 
+      li:first-child {
+        position: relative;
+        width: 225px;
+        height: 175px;
+
+        transition: width 150ms, height 150ms, display 150ms;
+      }
+      li:nth-child(2) {
+        width: 225px;
+        height: 75px;
+
+        position: relative;
+
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(10, 1fr);
+
+        > div {
+          position: absolute;
+
+          padding: 2px;
+
+          font-size: 0.8rem;
+
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          text-wrap: nowrap;
+
+          font-family: var(--font-fam-normal);
+          color: var(--clr-highlight);
+
+        }
+
+        > div:first-child {
+          grid-column: 1 / 4;
+          grid-row: 1 / 3;
+        }
+        > div:nth-child(2) {
+          grid-column: 6 / 11;
+          grid-row: 1 / 3;
+        }
+        > div:nth-child(3) {
+          grid-column: 1 / 4;
+          grid-row: 4 / 6;
+        }
+        > div:nth-child(4) {
+          grid-column: 6 / 11;
+          grid-row: 4 / 6;
+        }
+        > div:nth-child(5) {
+          grid-column: 1 / 4;
+          grid-row: 7 / 8;
+        }
+        > div:nth-child(6) {
+          grid-column: 6 / 11;
+          grid-row: 7 / 8;
+        }
+      }
+      li:last-child {
+        position: absolute;
+        z-index: 5;
+        top: 5px;
+        left: 5px;
+
+        button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          border-radius: 999px;
+          outline: none;
+          cursor: pointer;
+          border: 0px;
+          width: 1.2rem;
+          height: 1.2rem;
+          background-color: var(--clr-bg);
+        }
+      }
+
+    }
+    .items:hover {
+      width: 300px;  
+      height: 350px;
+
+      li:first-child {
+        position: relative;
+        width: 300px;
+        height: 250px;
+      }
+
+      li:last-child {
+        width: 300px;
+        height: 100px;
+
+      }
+      
+
+    }
+    > div {
+      position: sticky;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-family: var(--font-fam-normal);
+      color: var(--clr-highlight);
+
+      width: 100%;
+      height: 25px;
+
+      bottom: -300px;
+      left: 0;
     }
   }
 }
+
+
+
+
+
+/* Loading */
+.Loading {
+  height: calc( 100lvh - var(--h-nav));
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+

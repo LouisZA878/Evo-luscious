@@ -10,14 +10,18 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.59.0",
+    "@tanstack/react-query-devtools": "^5.59.16",
     "d3": "^7.9.0",
     "d3-scale": "^4.0.2",
     "framer-motion": "^11.11.7",
     "immer": "^10.1.1",
+    "install": "^0.13.0",
     "next": "14.2.9",
+    "npm": "^10.9.0",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.3.0",
+    "react-intersection-observer": "^9.13.1",
     "zustand": "^5.0.0-rc.2"
   }
 }

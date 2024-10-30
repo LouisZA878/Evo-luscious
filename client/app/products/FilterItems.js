@@ -5,7 +5,7 @@ import { useState } from 'react'
 import useFilter from '@/Store/useFilter'
 
 const FilterItems = () => {
-const { gender, age, size, setGender, setAge, setSize } = useFilter()
+const { setGender, setAge, setSize } = useFilter()
 
 const [genderHighlight, setGenderHighlight] = useState(0)
 const [ageHighlight, setAgeHighlight] = useState(0)
@@ -14,14 +14,17 @@ const [sizeHighlight, setSizeHighlight] = useState(0)
 const handleAge = (amount, Age) => {
   setAgeHighlight(amount)
   setAge(Age)
+
 }
 const handleGender = (amount, Gender) => {
   setGenderHighlight(amount)
   setGender(Gender)
+
 }
 const handleSize = (amount, Size) => {
   setSizeHighlight(amount)
   setSize(Size)
+
 }
 
   return (
@@ -38,15 +41,15 @@ const handleSize = (amount, Size) => {
         style={{ '--left': sizeHighlight + 'px' }}
       >
         <span onClick={() => handleSize(0, "SM")}>SM</span>
-        <span onClick={() => handleSize(100, "M")}>M</span>
+        <span onClick={() => handleSize(100, "MD")}>MD</span>
         <span onClick={() => handleSize(200, "LG")}>LG</span>
 
       </section>
       <section
         style={{ '--left': genderHighlight + 'px' }}
       >
-        <span onClick={() => handleGender(0, "Man")}>Man</span>
-        <span onClick={() => handleGender(100, "Woman")}>Woman</span>
+        <span onClick={() => handleGender(0, "M")}>Man</span>
+        <span onClick={() => handleGender(100, "F")}>Woman</span>
 
       </section>
 

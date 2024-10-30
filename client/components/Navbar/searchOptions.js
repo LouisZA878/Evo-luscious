@@ -3,9 +3,7 @@
 import useSearch from "@/Store/useSearch"
 
 const searchOptions = () => {
-const { search, searchInput } = useSearch()
-
-console.log(search)
+const { searchInput } = useSearch()
 
   return (
     <input
