@@ -3,7 +3,10 @@ const mongoose = require('mongoose')
 
 const Product = require('../../models/Product')
 const {
-    productID
+    productID,
+    imageIDBody,
+    validationResult,
+    matchedData
 } = require('../../components/Validator')
 
 let bucket;
@@ -20,17 +23,15 @@ const router = Router()
 router.delete('/delete_product',
 [
     productID().isIDValid(),
-    imageID().isImageIDValid()
+    imageIDBody().isImageIDValid()
 ]
 ,async (req, res) => {
-
     const result = validationResult(req)
     if (!result.isEmpty()) {
         return res.status(400).send({ errors: result.array() })
     }
     
     const { productID, imageID } = matchedData(req);
-
     try {
         await bucket.delete(new mongoose.Types.ObjectId(imageID))
         await Product.deleteOne({ _id:new mongoose.Types.ObjectId(productID) })

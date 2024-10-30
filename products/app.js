@@ -1,5 +1,7 @@
-// Modules
-require('dotenv').config()
+// Environment Variables
+if ( process.env.PROD_TYPE !== 'docker' ) {
+    require('dotenv').config();
+}
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
@@ -16,7 +18,7 @@ const MONGO = process.env.MONGO
 const app = express()
 app.use(cors({
     origin: `http://${HOST}:${PORT_CLIENT}`,
-    methods: ['GET', 'POST']
+    methods: ['GET', 'POST', 'DELETE']
 }))
 app.use(express.json())
 
@@ -41,7 +43,7 @@ const newProduct = require('./routes/v1/NewProduct')
 const Images = require('./routes/v1/Images')
 const Products = require('./routes/v1/Products')
 // const FProducts = require('./routes/v1/FilteredProducts')
-// const deleteProduct = require('./routes/v1/DeleteProduct')
+const deleteProduct = require('./routes/v1/DeleteProduct')
 const Test = require('./routes/v1/Test')
 
 // Routes
@@ -49,6 +51,6 @@ app.use(API_V, newProduct)
 app.use(API_V, Images)
 app.use(API_V, Products)
 // app.use(API_V, FProducts)
-// app.use(API_V, deleteProduct)
+app.use(API_V, deleteProduct)
 app.use(API_V, Test)
 

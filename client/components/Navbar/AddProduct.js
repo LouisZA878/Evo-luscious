@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import useFilter from '@/Store/useFilter'
 
 
-const AddProduct = () => {
+const AddProduct = ({ products_url }) => {
 const { gender, age, size, clothingType } = useFilter()
 
 const [file, setFile] = useState(undefined)
@@ -24,7 +24,7 @@ const [bundleForm, setBundleForm] = useState("Bundle")
 
     const mutation = useMutation({
         mutationFn: async (formData) => {
-            const response = await fetch('http://192.168.1.15:3001/api/products/v1/add_product', {
+            const response = await fetch(`${products_url}/add_product`, {
                 method: "POST",
                 body: formData,
             });

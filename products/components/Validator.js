@@ -20,6 +20,7 @@ const age = () => body('age').notEmpty().escape().withMessage("Age group this pr
 const size = () => body('size').notEmpty().escape().isLength({ min: SIZE_MIN, max: SIZE_MAX }).withMessage('Size of the product must be specified')
 const clothingType = () => body('clothingType').notEmpty().escape().withMessage('Clothing type must be specified')
 const productID = () => body('productID').notEmpty().escape()
+const imageIDBody = () => body('imageID').notEmpty().escape()
 
 const genderQuery = () => query('gender').notEmpty().escape().isLength({min: 1, max: 1 }).withMessage("Must specify whether this product is designed for either men or women")
 const ageQuery = () => query('age').notEmpty().escape().withMessage("Age group this product is designed for must be specified")
@@ -41,6 +42,7 @@ module.exports = {
     stock,
     size,
     productID,
+    imageIDBody,
     
     genderQuery,
     imageID,

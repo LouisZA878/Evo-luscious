@@ -19,7 +19,6 @@ const { body, query, param, validationResult, matchedData } = new ExpressValidat
     {
       isClothingType: async value => {
         const ClothingType = ["Bundle", "Pants", "Shirt", "Accesories"]
-
         if(!ClothingType.includes(value)) {
           throw new Error("Must be a valid clothing type")
         }
@@ -47,7 +46,6 @@ const { body, query, param, validationResult, matchedData } = new ExpressValidat
       },
       isIDValid: async value => {
         const product = await Product.findById(new mongoose.Types.ObjectId(value))
-
         if(!product) {
           throw new Error('Product does not exist')
         }

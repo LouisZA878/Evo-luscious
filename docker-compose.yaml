@@ -1,9 +1,34 @@
 services:
-  # next_client:
-  #   container_name: next_client
-  #   build: ./client
-  #   ports:
-  #     - "3000:3000"
+  next_client:
+    container_name: next_client
+    build: ./client
+    ports:
+      - "3000:3000"
+    networks:
+      - node-network
+
+  products:
+    container_name: products
+    build: ./products
+    ports:
+      - "3001:3001"
+    environment:
+      - PROD_TYPE='docker'
+      - HOST = 192.168.1.15 # CHange to suit your needs
+      - PORT_CLIENT = 3000
+      - PORT = 3001
+      - API_V = '/api/products/v1'
+      - MONGO = 'mongodb://products_db:27017/products' # Change to suit your needs
+      - ITEMS_PER_PAGE = 30
+      - NAME_MIN = 3
+      - NAME_MAX = 30
+      - PRICE_MIN = 1
+      - PRICE_MAX = 6
+      - SIZE_MIN = 1
+      - SIZE_MAX = 2
+      - BUCKET_NAME = "image_uploads"
+    networks:
+      - node-network
 
   products_db:
     container_name: products_db
@@ -12,40 +37,13 @@ services:
       - '27017:27017'
     volumes:
       - products_db_volume:/data/db
-
-  sonarqube:
-    image: sonarqube:community
-    depends_on:
-      - db
-    environment:
-      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
-      SONAR_JDBC_USERNAME: sonar
-      SONAR_JDBC_PASSWORD: sonar
-    volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-      - sonarqube_logs:/opt/sonarqube/logs
-    ports:
-      - "9000:9000"
-
-  db:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: sonar
-      POSTGRES_PASSWORD: sonar
-    volumes:
-      - postgresql:/var/lib/postgresql
-      - postgresql_data:/var/lib/postgresql/data
-
-
+    networks:
+      - node-network
 
 
 volumes:
   products_db_volume:
-  postgresql:
-  postgresql_data:
-  sonarqube_data:
-  sonarqube_extensions:
-  sonarqube_logs:
 
-
+networks:
+  node-network:
+    driver: bridge

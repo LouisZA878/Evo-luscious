@@ -9,7 +9,7 @@ import UserDropdown from './UserDropdown';
 import SearchOptions from './searchOptions';
 import AddProduct from './AddProduct';
 
-const User = () => {
+const User = ({ products_url }) => {
   const [userOptions, setUserOptions] = useState(false)
   const [searchOptions, setSearchOptions] = useState(false)
   const [addProduct, setAddProduct] = useState(false)
@@ -40,7 +40,7 @@ const User = () => {
         options={addProduct}
         setOptions={(e) => setAddProduct(e)}
       >
-        <AddProduct />
+        <AddProduct products_url={products_url}/>
       </UserDropdown>
 
     </div>

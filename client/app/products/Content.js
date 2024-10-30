@@ -55,13 +55,15 @@ const Content = ({ products_url }) => {
             <Items
               products_url={products_url}
               key={product._id}
-              age={product.age}
-              gender={product.gender}
+              age={age}
+              gender={gender}
               name={product.name}
               pictureID={product.pictureID}
+              productID={product._id}
               price={product.price}
-              size={product.size}
+              size={size}
               stock={product.stock}
+              clothingType={clothingType}
 
             />
 

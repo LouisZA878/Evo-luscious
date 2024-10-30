@@ -20,63 +20,62 @@ export default function Home() {
         <Image
         src={Waf}
           height={230}
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Maf}
           height={225}
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Ww}
           height={245}
-
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Maf}
           height={125}
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Ww}
           height={275}
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Waf}
           height={175}
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Waf}
           height={230}
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Maf}
           height={225}
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Ww}
           height={245}
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Maf}
           height={125}
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Ww}
           height={275}
-          objectPosition="center"
+          alt="image"
         />
         <Image
         src={Waf}
           height={175}
-          objectPosition="center"
+          alt="image"
         />
 
       </section>
