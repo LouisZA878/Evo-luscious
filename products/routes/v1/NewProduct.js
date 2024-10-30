@@ -27,9 +27,9 @@ router.post('/add_product', [
     upload().single("file"),
     name(),
     price(),
-    gender(),
-    age(),
-    size(),
+    gender().isGender(),
+    age().isAgeValid(),
+    size().isSize(),
     clothingType()
 ], async (req, res) => {
     const result = validationResult(req);

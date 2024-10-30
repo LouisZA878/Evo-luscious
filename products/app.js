@@ -14,7 +14,6 @@ const MONGO = process.env.MONGO
 
 // Middleware
 const app = express()
-
 app.use(cors({
     origin: `http://${HOST}:${PORT_CLIENT}`,
     methods: ['GET', 'POST']
@@ -39,11 +38,17 @@ start(MONGO, PORT)
 
 // Import Routes
 const newProduct = require('./routes/v1/NewProduct')
+const Images = require('./routes/v1/Images')
+const Products = require('./routes/v1/Products')
+// const FProducts = require('./routes/v1/FilteredProducts')
 // const deleteProduct = require('./routes/v1/DeleteProduct')
 const Test = require('./routes/v1/Test')
 
 // Routes
 app.use(API_V, newProduct)
+app.use(API_V, Images)
+app.use(API_V, Products)
+// app.use(API_V, FProducts)
 // app.use(API_V, deleteProduct)
 app.use(API_V, Test)
 

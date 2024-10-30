@@ -17,9 +17,32 @@ let bucket;
 // Custom decoder
 const { body, query, param, validationResult, matchedData } = new ExpressValidator(
     {
-      isAboveZero: async value => {
-        if (value < 1){
-          throw new Error('Value must be an integer above Zero')
+      isClothingType: async value => {
+        const ClothingType = ["Bundle", "Pants", "Shirt", "Accesories"]
+
+        if(!ClothingType.includes(value)) {
+          throw new Error("Must be a valid clothing type")
+        }
+      },
+      isSize: async value => {
+        const Size = ["SM", "MD", "LG"]
+
+        if(!Size.includes(value)) {
+          throw new Error("Must be a valid size")
+        }
+      },
+      isGender: async value => {
+        const Gender = ["M", "F"]
+
+        if(!Gender.includes(value)) {
+          throw new Error("Must be a valid gender")
+        }
+      },
+      isAgeValid: async value => {
+        const Age = ["Toddler", "Teenager", "Adult"]
+
+        if(!Age.includes(value)) {
+          throw new Error("Must be a valid age")
         }
       },
       isIDValid: async value => {
