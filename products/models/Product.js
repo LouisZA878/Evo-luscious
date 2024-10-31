@@ -46,6 +46,10 @@ const newProductSchema = new Schema({
     pictureID: {
         type: String,
         required: true
+    },
+    skeleton: {
+        type: Boolean,
+        required: true
     }
 
 

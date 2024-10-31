@@ -50,22 +50,23 @@ const Content = ({ products_url }) => {
 
       {
         data.pages.map( page => {
+          return page.products.filter(item => item.name.includes(search)).map( ( product, i ) => (
 
-          return page.products.filter(item => item.name.includes(search)).map( product => (
-            <Items
-              products_url={products_url}
-              key={product._id}
-              age={age}
-              gender={gender}
-              name={product.name}
-              pictureID={product.pictureID}
-              productID={product._id}
-              price={product.price}
-              size={size}
-              stock={product.stock}
-              clothingType={clothingType}
+              product.skeleton ? <ul className="items" key={i}></ul> :
+              <Items
+                products_url={products_url}
+                key={product._id}
+                age={age}
+                gender={gender}
+                name={product.name}
+                pictureID={product.pictureID}
+                productID={product._id}
+                price={product.price}
+                size={size}
+                stock={product.stock}
+                clothingType={clothingType}
 
-            />
+              />
 
           ))
       })

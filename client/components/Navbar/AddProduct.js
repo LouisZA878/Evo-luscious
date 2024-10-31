@@ -27,7 +27,7 @@ const [bundleForm, setBundleForm] = useState("Bundle")
             const response = await fetch(`${products_url}/add_product`, {
                 method: "POST",
                 body: formData,
-            });
+            })
             if (!response.ok) throw new Error('Network response was not ok');
             
             return response.json();
@@ -38,38 +38,31 @@ const [bundleForm, setBundleForm] = useState("Bundle")
         onMutate: async (newProducts) => {
             await queryClient.cancelQueries([ "products", gender, age, size, clothingType ]);
             const previousPostData = queryClient.getQueryData([ "products", gender, age, size, clothingType ]);
-            // console.log(newProducts)
-            // const formDataToObject = (formData) => {
-            //     const obj = {};
-            //     formData.forEach((value, key) => {
-            //         obj[key] = value;
-            //     });
-            //     return obj;
-            // };
-            // const newProductsObj = formDataToObject(newProducts)
 
-            // queryClient.setQueryData([ "products", gender, age, size, clothingType ], (oldProducts) => {
-            //     const stuff = formDataToObject(oldProducts)
-            //     console.log( oldProducts )
-               
-            //     let state
-                
-            //     if ( oldProducts ) {
-            //         state = {
-            //             productsAmount: oldProducts.productsAmount,
-            //             ...oldProducts,
-            //             products: [...oldProducts.products, { ...newProductsObj }]
-            //         }
-            //     }
-            //     if ( !oldProducts ) {
-            //         state = {
-            //             productsAmount: 1,
-            //             products: [{ ...newProductsObj }]
-            //         }
-            //     }
-            //     return state
-            // })
-
+            queryClient.setQueryData([ "products", gender, age, size, clothingType ], (oldProducts) => {
+                let state
+                if ( oldProducts ) {
+                    state = {
+                        pageParams: oldProducts.pageParams,
+                        pages: oldProducts.pages.map( page => ({
+                            ...page,
+                            products: [...page.products, { skeleton: true, name: "" } ]
+                        }))
+                    }
+                }
+                if ( !oldProducts ) {
+                    state = {
+                        pageParams: [ 1 ],
+                        pages: [
+                            {
+                                productsAmount: 1,
+                                products: [{ skeleton: true, name: "" }]
+                            }
+                        ]
+                    }
+                }
+                return state
+            })
             return {
                 previousPostData
             }

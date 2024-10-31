@@ -63,6 +63,7 @@ router.post('/add_product', [
         clothingType,
         pictureName: req.file.filename,
         pictureID: req.file.id,
+        skeleton: false
     });
 
     try {

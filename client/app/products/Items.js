@@ -39,43 +39,22 @@ const Items = ({ products_url, name, pictureID, gender, age, size, clothingType,
         console.log(data)
     },
     onMutate: async (newProducts) => {
-        await queryClient.cancelQueries([ "products", gender, age, size, clothingType ]);
-        // const previousPostData = queryClient.getQueryData([ "products", gender, age, size, clothingType ]);
-        // console.log(newProducts)
-        // const formDataToObject = (formData) => {
-        //     const obj = {};
-        //     formData.forEach((value, key) => {
-        //         obj[key] = value;
-        //     });
-        //     return obj;
-        // };
-        // const newProductsObj = formDataToObject(newProducts)
-
-        // queryClient.setQueryData([ "products", gender, age, size, clothingType ], (oldProducts) => {
-        //     const stuff = formDataToObject(oldProducts)
-        //     console.log( oldProducts )
-           
-        //     let state
-            
-        //     if ( oldProducts ) {
-        //         state = {
-        //             productsAmount: oldProducts.productsAmount,
-        //             ...oldProducts,
-        //             products: [...oldProducts.products, { ...newProductsObj }]
-        //         }
-        //     }
-    //         if ( !oldProducts ) {
-    //             state = {
-    //                 productsAmount: 1,
-    //                 products: [{ ...newProductsObj }]
-    //             }
-    //         }
-        //     return state
-        // })
-
-        // return {
-        //     previousPostData
-        // }
+      // await queryClient.cancelQueries([ "products", gender, age, size, clothingType ]);
+    const previousPostData = queryClient.getQueryData([ "products", gender, age, size, clothingType ]);
+    const previousImageData = queryClient.getQueryData([ "product_image", pictureID ]);
+      
+    queryClient.setQueryData([ "products", gender, age, size, clothingType ], (oldProducts) => {
+      let state = {
+              pageParams: oldProducts.pageParams,
+              pages: oldProducts.pages.map( page => ({
+                  ...page,
+                  products: page.products.filter( item => newProducts.productID !== item._id)
+              }))
+          } 
+      return state
+    })
+    
+    
     },
     onError: (error, _post, context) => {
         console.error('Error adding product:', error);
@@ -103,11 +82,11 @@ const Items = ({ products_url, name, pictureID, gender, age, size, clothingType,
         <div>${price}</div>
         <div>Av: {stock}</div>
       </li>
-      <li onClick={() => mutation.mutate({
+      <li >
+        <button onClick={() => mutation.mutate({
           productID,
           imageID: pictureID
         })}>
-        <button >
           <FaTrash />
         </button>     
       </li>
