@@ -135,6 +135,7 @@ const handleSubmit = (e) => {
         <input
             type="text"
             onChange={e => setPriceForm(e.target.value)}
+            value={priceForm}
         />
         <select onChange={e => setGenderForm(e.target.value)}>
             <option value="M">Man</option>
