@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { FaPlus, FaTrash } from "react-icons/fa";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 const Items = ({ products_url, name, pictureID, gender, age, size, clothingType, productID, price, stock }) => {
   const { data, isLoading } = useQuery({
@@ -71,27 +72,40 @@ const Items = ({ products_url, name, pictureID, gender, age, size, clothingType,
             alt="Product Image"
             style={{ objectFit: "cover" }}
           />
-        ): <div>Loading Image...</div>}
+        ): <Skeleton height={ 175 }/>}
       </li>
       <li>
-        <div>{name}</div>
-        <div>${price}</div>
-        <div>Av: {stock}</div>
+        <table>
+          <thead>
+            <tr>
+              <th colSpan="3">{name}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan="2">Price :</td>
+              <td colSpan="1">${price}</td>
+            </tr>
+            <tr>
+              <td colSpan="2" >Available :</td>
+              <td colSpan="1" >{stock}</td>
+            </tr>
+          </tbody>
+        </table>
       </li>
-      <li >
-        <button onClick={() => mutation.mutate({
-          productID,
-          imageID: pictureID
-        })}>
-          <FaTrash />
-        </button>     
-      </li>
-      <li>
-        <button>
-          <FaPlus />
-        </button>
-      </li>
-
+        <li >
+          { !isLoading && <button onClick={() => mutation.mutate({
+            productID,
+            imageID: pictureID
+          })}>
+            <FaTrash />
+          </button> }    
+        </li>
+        <li>
+          { !isLoading && <button>
+            <FaPlus />
+          </button>}
+        </li>
     </ul>
   );
 };

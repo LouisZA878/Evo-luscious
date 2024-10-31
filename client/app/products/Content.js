@@ -8,6 +8,7 @@ import useFilter from "@/Store/useFilter"
 import useSearch from "@/Store/useSearch"
 import Loading from "@/components/Loading/Loading"
 import Items from "./Items"
+import Item from "@/components/Loading/Item";
 
 
 const Content = ({ products_url }) => {
@@ -47,15 +48,16 @@ const Content = ({ products_url }) => {
   }
   return (
     <div className="content">
-
       {
         data.pages.map( page => {
-          return page.products.filter(item => item.name.includes(search)).map( ( product, i ) => (
+          return page.products.filter(item => 
+            item.name.toLowerCase().includes(search.toLowerCase())
+          ).map( product => (
 
-              product.skeleton ? <ul className="items" key={i}></ul> :
+              product.skeleton ? <Item key={`page-id-${product._id}`} /> :
               <Items
                 products_url={products_url}
-                key={product._id}
+                key={`page-id-${product._id}`}
                 age={age}
                 gender={gender}
                 name={product.name}
