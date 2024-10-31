@@ -13,7 +13,7 @@ const { gender, age, size, clothingType } = useFilter()
 const [file, setFile] = useState(undefined)
 
 const [apiFile, setApiFile] = useState(undefined)
-const [name, setName] = useState(undefined)
+const [name, setName] = useState('')
 const [priceForm, setPriceForm] = useState(undefined)
 const [genderForm, setGenderForm] = useState("M")
 const [ageForm, setAgeForm] = useState("Toddler")
@@ -36,10 +36,10 @@ const [bundleForm, setBundleForm] = useState("Bundle")
             console.log(data)
         },
         onMutate: async (newProducts) => {
-            await queryClient.cancelQueries([ "products", gender, age, size, clothingType ]);
-            const previousPostData = queryClient.getQueryData([ "products", gender, age, size, clothingType ]);
+            await queryClient.cancelQueries([ "products", newProducts.gender, newProducts.age, newProducts.size, newProducts.clothingType ]);
+            const previousPostData = queryClient.getQueryData([ "products", newProducts.gender, newProducts.age, newProducts.size, newProducts.clothingType ]);
 
-            queryClient.setQueryData([ "products", gender, age, size, clothingType ], (oldProducts) => {
+            queryClient.setQueryData([ "products", newProducts.gender, newProducts.age, newProducts.size, newProducts.clothingType ], (oldProducts) => {
                 let state
                 if ( oldProducts ) {
                     state = {
@@ -69,7 +69,7 @@ const [bundleForm, setBundleForm] = useState("Bundle")
         },
         onError: (error, _post, context) => {
             console.error('Error adding product:', error);
-            queryClient.setQueryData(["products"], context.previousPostData)
+            queryClient.setQueryData([ "products", gender, age, size, clothingType ], context.previousPostData)
         },
         onSettled: () => {
             queryClient.invalidateQueries([ "products", gender, age, size, clothingType ]);
@@ -85,6 +85,7 @@ const handleChange = (e) => {
         setApiFile(e.target.files[0])
     }
 }
+
 const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -101,6 +102,9 @@ const handleSubmit = (e) => {
         console.log("No empty fields allowed")
     } else {
         mutation.mutate(formData)
+        setName('')
+        setFile(undefined)
+        setPriceForm('')
     }
 }
 
@@ -126,6 +130,7 @@ const handleSubmit = (e) => {
         <input
             type="text"
             onChange={e => setName(e.target.value)}
+            value={name}
         />
         <input
             type="text"

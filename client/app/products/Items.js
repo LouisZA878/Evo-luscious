@@ -39,10 +39,6 @@ const Items = ({ products_url, name, pictureID, gender, age, size, clothingType,
         console.log(data)
     },
     onMutate: async (newProducts) => {
-      // await queryClient.cancelQueries([ "products", gender, age, size, clothingType ]);
-    const previousPostData = queryClient.getQueryData([ "products", gender, age, size, clothingType ]);
-    const previousImageData = queryClient.getQueryData([ "product_image", pictureID ]);
-      
     queryClient.setQueryData([ "products", gender, age, size, clothingType ], (oldProducts) => {
       let state = {
               pageParams: oldProducts.pageParams,
@@ -58,7 +54,7 @@ const Items = ({ products_url, name, pictureID, gender, age, size, clothingType,
     },
     onError: (error, _post, context) => {
         console.error('Error adding product:', error);
-        queryClient.setQueryData(["products"], context.previousPostData)
+        queryClient.setQueryData([ "products", gender, age, size, clothingType ], context.previousPostData)
     },
     onSettled: () => {
         queryClient.invalidateQueries([ "products", gender, age, size, clothingType ]);
