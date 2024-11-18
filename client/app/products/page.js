@@ -1,4 +1,6 @@
 
+import './Products.page.css'
+
 import Filter from "./Filter"
 import Sidebar from "./Sidebar"
 import Links from "./Links"

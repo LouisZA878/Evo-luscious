@@ -1,12 +1,14 @@
 const { Router } = require('express');
 const mongoose = require('mongoose');
-const { Transform } = require("stream");
 
 const {
     imageID,
     validationResult,
     matchedData
 } = require('../../components/Validator');
+const Publish = require('../../components/Publish')
+const { TOPIC_NAME, API_V, LOGS_KEY_INFO, LOGS_PAR_INFO, LOGS_KEY_ERROR, LOGS_PAR_ERROR } = process.env
+
 
 let bucket;
 mongoose.connection.on("connected", () => {
@@ -23,45 +25,49 @@ router.get('/images', [
     const result = validationResult(req);
 
     if (!result.isEmpty()) {
+        const message = {
+            key: LOGS_KEY_ERROR,
+            value: `Message: Express input failure - Route: ${API_V}/images`,
+            partition: LOGS_PAR_ERROR
+        }
+
+        Publish(TOPIC_NAME, message)
         return res.status(400).send({ errors: result.array() });
     }
 
     const { imageID } = matchedData(req);
     try {
-        const cursor = bucket.find({ _id: new mongoose.Types.ObjectId(imageID) })
-        const files = await cursor.toArray();
+      const file = await bucket
+        .find({ _id: new mongoose.Types.ObjectId(imageID) })
+        .toArray();
 
-        const filesData = await Promise.all(
-          files.map((file) => {
-            return new Promise((resolve, _reject) => {
-              bucket.openDownloadStream(file._id).pipe(
-                (() => {
-                  const chunks = [];
-                  return new Transform({
-                    // transform method will
-                    transform(chunk, encoding, done) {
-                      chunks.push(chunk);
-                      done();
-                    },
-                    flush(done) {
-                      const fbuf = Buffer.concat(chunks);
-                      const fileBase64String = fbuf.toString("base64");
-                      resolve(fileBase64String);
-                      done();
-                    },
-                  });
-                })()
-              );
-            });
-          })
-        );
-        res.status(200).json({
-            picture: filesData,
-            mime: files[0].metadata.mimetype
-            
-        });
+      // set the headers
+      res.set("Content-Type", file[0].contentType);
+
+      // create a stream to read from the bucket
+      const downloadStream = bucket.openDownloadStream(
+        new mongoose.Types.ObjectId(imageID)
+      );
+
+      // pipe the stream to the response
+      downloadStream.pipe(res);
+        const message = {
+          key: LOGS_KEY_INFO,
+          value: `Message: Image fetched successfully - Route: ${API_V}/images`,
+          partition: LOGS_PAR_INFO
+      }
+  
+      Publish(TOPIC_NAME, message)
+
 
     } catch (error) {
+      const message = {
+        key: LOGS_KEY_ERROR,
+        value: `Message: Image fetched unsuccefully - Route: ${API_V}/images`,
+        partition: LOGS_PAR_ERROR
+    }
+
+    Publish(TOPIC_NAME, message)
         console.log(error);
         res.status(400).json({ msg: { error } });
     }

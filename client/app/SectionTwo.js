@@ -1,15 +1,15 @@
 
-
 import SectionTwoInfo from "./SectionTwoInfo"
 import SectionTwoCar from "./SectionTwoCar"
+
 
 const SectionTwo = () => {
 
   return (
     <section>
-        <SectionTwoInfo>
-            <SectionTwoCar />
-        </SectionTwoInfo>
+      <SectionTwoInfo>
+        <SectionTwoCar />
+      </SectionTwoInfo>
     </section>
   )
 }

@@ -44,7 +44,16 @@ const Content = ({ products_url }) => {
 }, [fetchNextPage, isInView])
 
   if ( isLoading || !data ) {
-    return <Loading name="Products"/>
+    return <div className="content">
+      <Item />
+      <Item />
+      <Item />
+      <Item />
+      <Item />
+      <Item />
+      <Item />
+      <Item />
+    </div>
   }
   return (
     <div className="content">

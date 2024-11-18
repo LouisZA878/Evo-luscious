@@ -1,7 +1,7 @@
 const { Router } = require('express');
 
 const Product = require('../../models/Product');
-
+const Publish = require('../../components/Publish')
 const {
     pageQuery,
     ageQuery,
@@ -11,6 +11,8 @@ const {
     validationResult,
     matchedData
 } = require('../../components/Validator');
+const { TOPIC_NAME, API_V, LOGS_KEY_INFO, LOGS_PAR_INFO, LOGS_KEY_ERROR, LOGS_PAR_ERROR } = process.env
+
 
 const router = Router();
 
@@ -39,6 +41,13 @@ async (req, res) => {
     const productsAmount = await Product.countDocuments({ 
         clothingType, gender, age, size
      })
+     const message = {
+        key: LOGS_KEY_INFO,
+        value: `Message: Express products fetched - Route: ${API_V}/all_products`,
+        partition: LOGS_PAR_INFO
+    };
+
+    Publish(TOPIC_NAME, message);
 
     const products = await Product.find({
         clothingType, gender, age, size    

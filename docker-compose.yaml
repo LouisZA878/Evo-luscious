@@ -1,34 +1,34 @@
 services:
-  next_client:
-    container_name: next_client
-    build: ./client
-    ports:
-      - "3000:3000"
-    networks:
-      - node-network
+  # next_client:
+  #   container_name: next_client
+  #   build: ./client
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - node-network
 
-  products:
-    container_name: products
-    build: ./products
-    ports:
-      - "3001:3001"
-    environment:
-      - PROD_TYPE='docker'
-      - HOST = 192.168.1.15 # CHange to suit your needs
-      - PORT_CLIENT = 3000
-      - PORT = 3001
-      - API_V = '/api/products/v1'
-      - MONGO = 'mongodb://products_db:27017/products' # Change to suit your needs
-      - ITEMS_PER_PAGE = 30
-      - NAME_MIN = 3
-      - NAME_MAX = 30
-      - PRICE_MIN = 1
-      - PRICE_MAX = 6
-      - SIZE_MIN = 1
-      - SIZE_MAX = 2
-      - BUCKET_NAME = "image_uploads"
-    networks:
-      - node-network
+  # products:
+  #   container_name: products
+  #   build: ./products
+  #   ports:
+  #     - "3001:3001"
+  #   environment:
+  #     - PROD_TYPE='docker'
+  #     - HOST = 192.168.1.15 # CHange to suit your needs
+  #     - PORT_CLIENT = 3000
+  #     - PORT = 3001
+  #     - API_V = '/api/products/v1'
+  #     - MONGO = 'mongodb://products_db:27017/products' # Change to suit your needs
+  #     - ITEMS_PER_PAGE = 30
+  #     - NAME_MIN = 3
+  #     - NAME_MAX = 30
+  #     - PRICE_MIN = 1
+  #     - PRICE_MAX = 6
+  #     - SIZE_MIN = 1
+  #     - SIZE_MAX = 2
+  #     - BUCKET_NAME = "image_uploads"
+  #   networks:
+  #     - node-network
 
   products_db:
     container_name: products_db
@@ -40,9 +40,20 @@ services:
     networks:
       - node-network
 
+  cart_db:
+    container_name: cart_db
+    image: mongo:7-jammy
+    ports:
+      - '27018:27017'
+    volumes:
+      - cart_db_volume:/data/db
+    networks:
+      - node-network
+
 
 volumes:
   products_db_volume:
+  cart_db_volume:
 
 networks:
   node-network:

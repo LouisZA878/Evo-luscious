@@ -1,11 +1,20 @@
-import Image from "next/image";
+import './Home.page.css'
 
-import SectionOne from "./SectionOne";
-import SectionTwo from "./SectionTwo";
+import dynamic from 'next/dynamic'
 
-import Maf from '@/public/m-af.jpg'
-import Waf from '@/public/w-af.jpg'
-import Ww from '@/public/w-w.jpg'
+import SectionOne from './SectionOne'
+const SectionTwo = dynamic(
+  () => import('./SectionTwo'),
+  {
+    loading: () => <p>Loading...</p>
+  }
+)
+const SectionThree = dynamic(
+  () => import('./SectionThree'),
+  {
+    loading: () => <p>Loading...</p>
+  }
+)
 
 export default function Home() {
   return (
@@ -16,69 +25,8 @@ export default function Home() {
         <span></span>
       </SectionOne>
       <SectionTwo />
-      <section>
-        <Image
-        src={Waf}
-          height={230}
-          alt="image"
-        />
-        <Image
-        src={Maf}
-          height={225}
-          alt="image"
-        />
-        <Image
-        src={Ww}
-          height={245}
-          alt="image"
-        />
-        <Image
-        src={Maf}
-          height={125}
-          alt="image"
-        />
-        <Image
-        src={Ww}
-          height={275}
-          alt="image"
-        />
-        <Image
-        src={Waf}
-          height={175}
-          alt="image"
-        />
-        <Image
-        src={Waf}
-          height={230}
-          alt="image"
-        />
-        <Image
-        src={Maf}
-          height={225}
-          alt="image"
-        />
-        <Image
-        src={Ww}
-          height={245}
-          alt="image"
-        />
-        <Image
-        src={Maf}
-          height={125}
-          alt="image"
-        />
-        <Image
-        src={Ww}
-          height={275}
-          alt="image"
-        />
-        <Image
-        src={Waf}
-          height={175}
-          alt="image"
-        />
+      <SectionThree />
 
-      </section>
     </div>
   );
 }

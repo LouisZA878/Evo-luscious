@@ -1,4 +1,4 @@
-import * as motion from "framer-motion/client"
+import * as m from "framer-motion/m"
 
 const item = {
     variants: {
@@ -11,7 +11,7 @@ const item = {
 const UserOptions = () => {
   return (
     <>
-            <motion.button
+            <m.button
                 initial='closed'
                 exit='closed'
                 animate='open'
@@ -19,8 +19,8 @@ const UserOptions = () => {
                 variants={item.variants}
             >
                 Log Out
-            </motion.button>
-            <motion.button
+            </m.button>
+            <m.button
                 initial='closed'
                 exit='closed'
                 animate='open'
@@ -28,8 +28,8 @@ const UserOptions = () => {
                 variants={item.variants}
             >
                 Settings
-            </motion.button>
-            <motion.button
+            </m.button>
+            <m.button
                 initial='closed'
                 exit='closed'
                 animate='open'
@@ -37,7 +37,7 @@ const UserOptions = () => {
                 variants={item.variants}
             >
                 Profile
-            </motion.button>
+            </m.button>
     </>
   )
 }

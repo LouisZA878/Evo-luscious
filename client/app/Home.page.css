@@ -1,0 +1,144 @@
+/* Home */
+.home > section:first-child {
+  font-family: var(--font-geist-mono);
+    height: calc( 100lvh - var(--h-nav) );
+    width: 100%;
+  
+    position: relative;
+  
+    > span {
+      position: absolute;
+      right: 0;
+    }
+    > span:first-child {
+  
+      z-index: 1;
+      top: -75px;
+      background-color: #ab9364 ;
+  
+      width: 25%;
+      height: 100lvh;
+  
+    }
+    > span:nth-child(2) {
+      z-index: 2;
+      top: 10vh;
+      background-color: #98793c ;
+  
+      width: 40%;
+      height: 50lvh;
+    }
+    
+    article {
+      position: absolute;
+      left: 50px;
+      top: 20lvh;
+  
+      color: var(--clr-secondary);
+  
+      width: 30%;
+      
+      h1 {
+        
+        font-size: 2em;
+        font-weight: 600;
+        
+        span {
+          font-size: 2.5rem;
+          font-weight: 900;
+          font-family: var(--font-fam-fancy);
+          color: var(--clr-main);
+    
+        }
+      }
+  
+      p {
+        font-size: 0.9rem;
+        padding: 10px 0 0 0;
+      }
+  
+    }
+    .img-home {
+      position: absolute;
+      z-index: 3;
+    }
+    .img-home.one {
+      width: 275px;
+      top: 50px;
+      right: 50px;
+      height: 225px;
+      
+    }
+    .img-home.two {
+      top: 50px;
+      right: calc( 275px + 75px );
+      height: calc( 225px + 175px );
+    }
+    .img-home.three {
+      top: calc( 225px + 75px );
+      right: 50px;
+  
+      height: calc( 225px - 75px );
+    }
+  }
+  
+  .home > section:nth-child(2) {
+    height: var(--h-nav);
+    width: 100%;
+  
+    background-color: #ab9364 ;
+    white-space: nowrap;
+    overflow: hidden;
+  
+    > div {
+      height: 100%;
+      width: 100%;
+  
+      display: flex;
+  
+      > span{
+        height: 100%;
+        min-width: 3rem;
+        max-width: 12rem;
+        
+        padding: 7.5px;
+  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  
+        color: var(--clr-highlight);
+  
+      }
+      > span:nth-child(even) {
+        font-size: 2.3rem;
+        font-weight: 600;
+      }
+      > span:nth-child(odd) {
+        font-size: 1.4rem;
+        font-weight: 400;
+      }
+      > div {
+        width: 25%;
+      }
+  
+    }
+  
+  }
+  .home > section:nth-child(3){
+    min-height: calc( 100lvh - var(--h-nav) );
+    width: 900px;
+    
+    padding: 1rem;
+    margin: 0 auto;
+  
+    columns: 250px 3;
+    column-gap: 1rem;
+    position: relative;
+    img {
+      display: block;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+  }
+  

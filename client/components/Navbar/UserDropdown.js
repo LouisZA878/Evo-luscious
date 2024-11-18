@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
+import { m } from "framer-motion"
 
 const UserDropdown = ({ options, setOptions, children }) => {
   const dropdownRef = useRef(null);
@@ -39,7 +40,7 @@ const UserDropdown = ({ options, setOptions, children }) => {
   return (
     <AnimatePresence>
     {options && (
-    <motion.div
+    <m.div
         ref={dropdownRef}
         initial="closed"
         exit="closed"
@@ -47,7 +48,7 @@ const UserDropdown = ({ options, setOptions, children }) => {
         variants={menu}
     >
         {children}
-    </motion.div>
+    </m.div>
     )}
     </AnimatePresence>
   )

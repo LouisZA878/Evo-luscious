@@ -1,26 +1,8 @@
 import Image from "next/image";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FaPlus, FaTrash } from "react-icons/fa";
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 const Items = ({ products_url, name, pictureID, gender, age, size, clothingType, productID, price, stock }) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["product_image", pictureID],
-    queryFn: async () => {
-      const response = await fetch(`${products_url}/images?imageID=${pictureID}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const base64String = await response.json()
-      return base64String;
-    },
-  });
-
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
@@ -63,16 +45,15 @@ const Items = ({ products_url, name, pictureID, gender, age, size, clothingType,
 });
 
   return (
-    <ul className="items" key={pictureID}>
+    <ul className="items" key={productID}>
       <li>
-        {!isLoading ? (
           <Image
-            src={`data:${data.mime};base64,${data.picture}`}
+            src={`${products_url}/images?imageID=${pictureID}`}
             fill
             alt="Product Image"
             style={{ objectFit: "cover" }}
+            priority
           />
-        ): <Skeleton height={ 175 }/>}
       </li>
       <li>
         <table>
@@ -94,17 +75,17 @@ const Items = ({ products_url, name, pictureID, gender, age, size, clothingType,
         </table>
       </li>
         <li >
-          { !isLoading && <button onClick={() => mutation.mutate({
+          <button onClick={() => mutation.mutate({
             productID,
             imageID: pictureID
           })}>
             <FaTrash />
-          </button> }    
+          </button>
         </li>
         <li>
-          { !isLoading && <button>
+          <button>
             <FaPlus />
-          </button>}
+          </button>
         </li>
     </ul>
   );
